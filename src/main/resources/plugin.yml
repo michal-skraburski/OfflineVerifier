@@ -1,0 +1,7 @@
+name: OfflineVerifier
+version: 1.0.0
+main: eu.maikeru.ExamplePlugin
+description: A offline whitelist & login verifier
+author: Maikeru
+website: https://papermc.io
+api-version: '1.21.8'
