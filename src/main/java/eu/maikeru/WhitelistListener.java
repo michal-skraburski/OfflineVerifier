@@ -14,14 +14,12 @@ public class WhitelistListener implements Listener {
     @EventHandler
     public void onAsyncPlayerPreLoginEvent(AsyncPlayerPreLoginEvent event){
         Set<OfflinePlayer> players = Bukkit.getWhitelistedPlayers();
-        players.forEach(action -> {
-            System.out.println(action.getName());
-        });
-        boolean flag = players.stream().anyMatch(player -> player.getName() == event.getName());
+    
+        boolean flag = players.stream().anyMatch(player -> player.getName().equals(event.getName()));
         if (flag) {
             event.allow();
         }else {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("You are not whitelisted!"));
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Component.text("You are not whitelisted!!"));
         }
 
     }
