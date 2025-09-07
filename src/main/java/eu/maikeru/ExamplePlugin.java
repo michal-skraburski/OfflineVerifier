@@ -7,10 +7,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 
 public class ExamplePlugin extends JavaPlugin implements Listener {
+  private static ComponentLogger logger;
+
   @Override
   public void onEnable() {
+    logger = this.getComponentLogger();
     Bukkit.getPluginManager().registerEvents(this, this);
     Bukkit.getPluginManager().registerEvents(new WhitelistListener(), this);
   }
@@ -18,5 +22,9 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event) {
     event.getPlayer().sendMessage(Component.text("Hello, " + event.getPlayer().getName() + "!"));
+  }
+
+  public static ComponentLogger getLog(){
+    return logger;
   }
 }
