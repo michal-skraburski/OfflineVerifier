@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 public class Login implements Serializable {
     private final String name;
     private final String hashPass;
+    
     public Login(String name, String password) {
         this.name = name;
         this.hashPass = Login.hash(password);

@@ -10,13 +10,17 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 
 public class ExamplePlugin extends JavaPlugin implements Listener {
-  private static ComponentLogger logger;
+  private ComponentLogger logger;
+  private LoginManager loginMan;
 
   @Override
   public void onEnable() {
     logger = this.getComponentLogger();
+    loginMan = new LoginManager();
     Bukkit.getPluginManager().registerEvents(this, this);
     Bukkit.getPluginManager().registerEvents(new WhitelistListener(), this);
+    registerCommand("register", new RegisterCommand());
+    registerCommand("login", new LoginCommand());
   }
 
   @EventHandler
@@ -24,7 +28,11 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
     event.getPlayer().sendMessage(Component.text("Hello, " + event.getPlayer().getName() + "!"));
   }
 
-  public static ComponentLogger getLog(){
+  public ComponentLogger getLog(){
     return logger;
+  }
+
+  public LoginManager getLoginManager () {
+    return loginMan;
   }
 }
