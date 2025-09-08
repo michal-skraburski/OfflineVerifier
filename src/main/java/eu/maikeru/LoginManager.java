@@ -53,11 +53,16 @@ public final class LoginManager {
         this.loginsFile = loginsFile;
         this.logins = this.loadLogins();
     }
+
     public void addLogin(String name, String password) {
-        logins.add(new Login(name, password));
+        this.logins.add(new Login(name, password));
         writeLogins();
     }
 
+    public boolean loginExistsFor(String player) {
+        return logins.stream().anyMatch(login -> login.getName().equals(player));
+    }
+    
     public void writeLogins(File file) {
         try (Writer writer = new FileWriter(file)){
             gson.toJson(logins, writer);

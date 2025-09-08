@@ -22,10 +22,10 @@ public class RegisterCommand implements BasicCommand {
         LoginManager loginMan = JavaPlugin.getPlugin(ExamplePlugin.class).getLoginManager();
         List<Login> logs = loginMan.getLogins();
         
-        boolean pred = logs.stream().anyMatch(login -> login.getName() == source.getExecutor().getName());
+        boolean pred = logs.stream().anyMatch(login -> login.getName().equals(source.getSender().getName()));
 
         if (!pred) {
-            loginMan.addLogin(source.getExecutor().getName(), args[0]);
+            loginMan.addLogin(source.getSender().getName(), args[0]);
             source.getSender().sendMessage(Component.text("Success! You have been registered.", NamedTextColor.GREEN));
         }else {
             source.getSender().sendMessage(Component.text("You can't register more than once!", NamedTextColor.RED));
