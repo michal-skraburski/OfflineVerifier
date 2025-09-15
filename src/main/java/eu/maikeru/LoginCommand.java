@@ -29,7 +29,6 @@ public class LoginCommand implements BasicCommand {
         if (!pred) {
             source.getSender().sendMessage(Component.text("Wrong password.", NamedTextColor.RED));
         }else {
-
             LockedPlayer player = lockedPlayers.stream()
                .filter(lply -> (lply.getPlayer().getName().equals(source.getSender().getName())))
                .findFirst()

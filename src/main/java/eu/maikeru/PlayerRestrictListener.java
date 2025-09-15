@@ -18,20 +18,29 @@ public class PlayerRestrictListener implements Listener {
 
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent event){
-       Player ply = event.getPlayer();
-       String name = ply.getName();
-       LoginManager loginMan = JavaPlugin.getPlugin(ExamplePlugin.class).getLoginManager();
-       List<LockedPlayer> lockedPlayers = JavaPlugin.getPlugin(ExamplePlugin.class).getLockedPlayers();
-       LockedPlayer lply = new LockedPlayer(ply);
-       lply.lock();
-       lockedPlayers.add(lply);
-       event.setJoinMessage(null);
+          Player ply = event.getPlayer();
 
-       if (loginMan.loginExistsFor(name)) {
-            ply.sendMessage(Component.text("Use /login <password> to log into the server.", NamedTextColor.GOLD));
-       }else {
-            ply.sendMessage(Component.text("Use /register <password> to create a login!", NamedTextColor.RED));
-       }
+          String name = ply.getName();
+          LoginManager loginMan = JavaPlugin.getPlugin(ExamplePlugin.class).getLoginManager();
+          List<Login> logs = loginMan.getLogins();
+          List<LockedPlayer> lockedPlayers = JavaPlugin.getPlugin(ExamplePlugin.class).getLockedPlayers();
+          LockedPlayer lply = new LockedPlayer(ply);
+         
+          boolean pred = logs.stream().anyMatch(login -> login.hasIp(ply.getAddress().getHostString()));
+
+          if (pred) {
+               return;
+          }
+          
+          lply.lock();
+          lockedPlayers.add(lply);
+          event.setJoinMessage(null);
+
+          if (loginMan.loginExistsFor(name)) {
+               ply.sendMessage(Component.text("Use /login <password> to log into the server.", NamedTextColor.GOLD));
+          }else {
+               ply.sendMessage(Component.text("Use /register <password> to create a login!", NamedTextColor.RED));
+          }
     }
 
     @EventHandler

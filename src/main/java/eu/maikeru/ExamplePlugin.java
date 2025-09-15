@@ -26,6 +26,8 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
     Bukkit.getPluginManager().registerEvents(new WhitelistListener(), this);
     registerCommand("register", new RegisterCommand());
     registerCommand("login", new LoginCommand());
+    registerCommand("trustip", new RegisterIpCommand());
+    registerCommand("distrustip", new DistrustIpCommand());
   }
 
   @EventHandler
@@ -44,4 +46,8 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
     public List<LockedPlayer> getLockedPlayers() {
         return lockedPlayers;
     }
+  @Override
+  public void onDisable() {
+    loginMan.writeLogins();
+  }
 }

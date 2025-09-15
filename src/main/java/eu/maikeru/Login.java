@@ -4,13 +4,16 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 public class Login implements Serializable {
     private final String name;
     private final String hashPass;
+    private final ArrayList<String> trustedIps;
     
     public Login(String name, String password) {
         this.name = name;
+        this.trustedIps = new ArrayList<>(); 
         this.hashPass = Login.hash(password);
     }
 
@@ -34,6 +37,25 @@ public class Login implements Serializable {
           hexString.append(hex);
       }
       return hexString.toString();
+    }
+    public boolean hasIp(String ip) {
+       return trustedIps.stream().filter(p -> p.equals(ip)).findFirst().isPresent(); 
+    }
+
+    public void trustIp(String ip) {
+        this.trustedIps.add(ip);
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<String> getIpsCopy(){
+        return (ArrayList<String>) trustedIps.clone();         
+    }
+
+    public boolean distrustIp(String ip) {
+        boolean pred = 
+        this.trustedIps.removeIf(lip -> lip.equals(ip));
+
+        return pred;
     }
 
     public String getName() {
