@@ -26,8 +26,8 @@ public class ExamplePlugin extends JavaPlugin implements Listener {
     Bukkit.getPluginManager().registerEvents(new WhitelistListener(), this);
     registerCommand("register", new RegisterCommand());
     registerCommand("login", new LoginCommand());
-    registerCommand("trustip", new RegisterIpCommand());
-    registerCommand("distrustip", new DistrustIpCommand());
+    //registerCommand("trustip", new RegisterIpCommand());
+    //registerCommand("distrustip", new DistrustIpCommand());
   }
 
   @EventHandler
