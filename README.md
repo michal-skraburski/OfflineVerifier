@@ -10,7 +10,12 @@ Login with a offline or online account and register the account, then login.
 
 ## Commands
 `/register <password> <password>`
+
 `/login <password>`
-The following commands allow you to skip the login requirement if the connecting player's IP is the same as when the command was run.
+
+The following commands allow you to skip the login requirement if the connecting player's IP is 
+the same as when the command was run.
+
 `/trustip`
+
 `/distrustip`
